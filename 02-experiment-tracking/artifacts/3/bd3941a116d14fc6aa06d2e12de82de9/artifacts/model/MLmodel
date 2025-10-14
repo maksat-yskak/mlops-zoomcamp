@@ -15,13 +15,13 @@ flavors:
     sklearn_version: 1.6.1
 is_signature_from_type_hint: false
 mlflow_version: 2.22.0
-model_size_bytes: 2578116
-model_uuid: 6d1a74c8f7ad4c7099a35a627a5827e0
+model_size_bytes: 2524668
+model_uuid: 17047fea405e442fb92600e59f57e443
 prompts: null
-run_id: 6df4b6cd088e402297a54161ac95408a
+run_id: bd3941a116d14fc6aa06d2e12de82de9
 signature:
   inputs: '[{"type": "tensor", "tensor-spec": {"dtype": "float64", "shape": [-1, 5702]}}]'
   outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "float64", "shape": [-1]}}]'
   params: null
 type_hint_from_example: false
-utc_time_created: '2025-10-13 02:32:38.817393'
+utc_time_created: '2025-10-14 18:10:32.044300'
