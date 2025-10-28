@@ -1,0 +1,23 @@
+services:
+  backend:
+    image: ${LOCAL_IMAGE_NAME}
+    ports: 
+      - "8080:8080"
+    environment:
+      - PREDICTION_STREAM_NAME=ride_predictions
+      - TEST_RUN=True
+      - RUN_ID=Test123
+      - AWS_DEFAULT_REGION=eu-north-1
+      - MODEL_LOCATION=/app/model
+    volumes:
+      - ./model:/app/model
+
+#   docker run -it --rm \
+# -p 8080:8080 \
+# -e PREDICTIONS_STREAM_NAME="ride_predictions" \
+# -e RUN_ID="Test123" \
+# -e MODEL_LOCATION="/app/model" \
+# -e TEST_RUN="True" \
+# -e AWS_DEFAULT_REGION="eu-north-1" \
+# -v $(pwd)/model:/app/model \
+# ${LOCAL_IMAGE_NAME}

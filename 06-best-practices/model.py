@@ -5,11 +5,24 @@ import base64
 import boto3
 import mlflow 
 
+def get_model_location(run_id):
+    model_location = os.getenv('MODEL_LOCATION')
+
+    if model_location is not None:
+        return model_location
+
+    model_bucket = os.getenv('MODEL_BUCKET', 'mlflow-models-maksat')
+    experiment_id = os.getenv('MLFLOW_EXPERIMENT_ID', '1')
+
+    model_location = f's3://{model_bucket}/{experiment_id}/{run_id}/artifacts/model'
+    return model_location
+
+
 def load_model(run_id: str):
-    logged_model = f's3://mlflow-models-maksat/1/{run_id}/artifacts/model'
-    # logged_model = f'runs:/{RUN_ID}/model'
-    model = mlflow.pyfunc.load_model(logged_model)
+    model_path = get_model_location(run_id)    
+    model = mlflow.pyfunc.load_model(model_path)
     return model
+
 
 def base64_decode(encoded_data):
     decoded_data = base64.b64decode(encoded_data).decode('utf-8')
@@ -97,5 +110,10 @@ def init(prediction_stream_name: str, run_id: str, test_run: bool):
         kinesis_callback = KinesisCallback(kinesis_client, prediction_stream_name)
         callbacks.append(kinesis_callback.put_record) 
 
-    model_service = ModelService(model)
+    model_service = ModelService(
+        model=model,
+        model_version=run_id,
+        callbacks=callbacks
+    )
+
     return model_service
