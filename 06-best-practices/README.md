@@ -45,12 +45,21 @@ aws --endpoint-url=http://localhost:4566 \
 ```
 
 ```bash
-aws  --endpoint-url=http://localhost:4566 \
-    kinesis     get-shard-iterator \
+PREDICTIONS_STREAM_NAME=ride_predictions
+SHARD='shardId-000000000000'
+SHARD_ITERATOR=$(aws kinesis get-shard-iterator \
+    --endpoint-url=http://localhost:4566  \
     --shard-id ${SHARD} \
     --shard-iterator-type TRIM_HORIZON \
     --stream-name ${PREDICTIONS_STREAM_NAME} \
-    --query 'ShardIterator'
+    --query 'ShardIterator' \
+)
+
+RESULT=$(aws kinesis get-records \
+    --endpoint-url=http://localhost:4566 \
+    --shard-iterator $SHARD_ITERATOR)
+
+echo $RESULT | jq -r '.Records[0].Data' | base64 -d
 ```
 
 ### Unable to locate credentials

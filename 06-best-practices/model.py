@@ -99,6 +99,15 @@ class KinesisCallback:
         )
 
 
+def create_kinesis_client():
+    endpoint_url = os.getenv('KINESIS_ENDPOINT_URL')
+
+    if endpoint_url is None:
+        return boto3.client('kinesis')
+
+    return boto3.client('kinesis', endpoint_url=endpoint_url)
+
+
 def init(prediction_stream_name: str, run_id: str, test_run: bool):
     model = load_model(run_id)
 
@@ -106,7 +115,7 @@ def init(prediction_stream_name: str, run_id: str, test_run: bool):
 
     if not test_run:
 
-        kinesis_client = boto3.client('kinesis', 'eu-north-1') 
+        kinesis_client = create_kinesis_client()
         kinesis_callback = KinesisCallback(kinesis_client, prediction_stream_name)
         callbacks.append(kinesis_callback.put_record) 
 
