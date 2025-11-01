@@ -7,4 +7,11 @@ disable = [
     "invalid-name",
     "too-few-public-methods"
 ]
-    
+
+[tool.black]
+line-lenght = 88
+target-version = ['py39']
+skip-string-normalization = true
+
+[tool.isort]
+length_sort = true

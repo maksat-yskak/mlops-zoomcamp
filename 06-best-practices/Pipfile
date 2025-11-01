@@ -13,7 +13,7 @@ psutil = "==7.1.1"
 deepdiff = "*"
 pylint = "*"
 black = "*"
-isort = "*"
+isort = "==6.1.0"
 
 [requires]
 python_version = "3.9"
