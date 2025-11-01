@@ -11,6 +11,9 @@ psutil = "==7.1.1"
 
 [dev-packages]
 deepdiff = "*"
+pylint = "*"
+black = "*"
+isort = "*"
 
 [requires]
 python_version = "3.9"
