@@ -78,4 +78,6 @@ def main(year, month):
 
 
 if __name__ == "__main__":
-    main(year=2023, month=3)
+    year = int(sys.argv[1]) # 2023
+    month = int(sys.argv[2]) # 3
+    main(year=year, month=month)
