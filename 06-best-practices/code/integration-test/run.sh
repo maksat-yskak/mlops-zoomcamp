@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 if [[ -z "${GITHUB_ACTIONS}" ]]; then
     cd "$(dirname "$0")"
