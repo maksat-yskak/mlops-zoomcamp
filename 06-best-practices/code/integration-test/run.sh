@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [[ -z "${GITHUB_ACTIONS}" ]]; then
-  cd "$(dirname "$0")"
+    cd "$(dirname "$0")"
 fi
 
 if [[ ${LOCAL_IMAGE_NAME} == "" ]]; then
@@ -17,7 +17,7 @@ export PREDICTION_STREAM_NAME="ride_predictions"
 
 docker compose up -d
 
-sleep 1
+sleep 5
 
 aws --endpoint-url=http://localhost:4566 \
     kinesis create-stream \
